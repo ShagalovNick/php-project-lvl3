@@ -2,6 +2,7 @@
 
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 define('LARAVEL_START', microtime(true));
 
@@ -51,5 +52,11 @@ $kernel = $app->make(Kernel::class);
 $response = $kernel->handle(
     $request = Request::capture()
 )->send();
+
+/*echo 'Hello';
+
+Route::get('/', function () {
+  return view('index');
+});*/
 
 $kernel->terminate($request, $response);
