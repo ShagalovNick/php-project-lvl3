@@ -63,10 +63,11 @@ class UrlController extends Controller
         DB::table('urls')->insertGetId(
             ['name' => $name, 'created_at' => $timeNow]
         );
+        flash('Страница успешно добавлена');
         } else {
             flash('Страница уже существует');
         }
-        
+         
         //$name = $url['name'];
         $id = DB::table('urls')->where('name', $name)->value('id');
         //$date = $url['created_at'];

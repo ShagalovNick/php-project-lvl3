@@ -53,10 +53,4 @@ $response = $kernel->handle(
     $request = Request::capture()
 )->send();
 
-/*echo 'Hello';
-
-Route::get('/', function () {
-  return view('index');
-});*/
-
 $kernel->terminate($request, $response);
