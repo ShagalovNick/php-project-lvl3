@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Schema;
+
 
 class UrlController extends Controller
 {
@@ -21,7 +23,16 @@ class UrlController extends Controller
     {
         $page = $request->get('page') ?? 0;
         $skip = ($page - 1) * 15;
-        $urls = DB::table('urls')->skip($skip)->take(15)->get();
+
+        $latestCheck = DB::table('url_checks')
+        ->select('url_id', DB::raw('MAX(created_at) as last_url_check'))
+        ->groupBy('url_id');
+
+        $urls = DB::table('urls')
+        ->joinSub($latestCheck, 'latest_check', function ($join) {
+        $join->on('urls.id', '=', 'latest_check.url_id');
+        })->skip($skip)->take(15)->get();
+
         return view('urls.index', ['page' => $page, 'urls' => $urls]);
     }
 
@@ -52,9 +63,7 @@ class UrlController extends Controller
         $parsedUrl = parse_url($url['name']);
         $name = $parsedUrl['scheme'] . "://" . strtolower($parsedUrl['host']);
 
-        //$validatorUniq = Validator::make($request->all(), [
         $validatorUniq = Validator::make(['name' => $name], [
-            //'*.name' => 'bail|unique:urls',
             'name' => 'bail|unique:urls',
         ]);
 
@@ -68,10 +77,7 @@ class UrlController extends Controller
             flash('Страница уже существует');
         }
          
-        //$name = $url['name'];
         $id = DB::table('urls')->where('name', $name)->value('id');
-        //$date = $url['created_at'];
-        //return view('urls.show', ['id' => 1, 'name' => $name, 'created_at' => '']);
         return Redirect::route('urls_show', ['id' => $id]);
     }
 
@@ -84,8 +90,12 @@ class UrlController extends Controller
     public function show($id)
     {
         $name = DB::table('urls')->where('id', $id)->value('name');
+        if (!$name) {
+            abort(404);
+        }
         $date = DB::table('urls')->where('id', $id)->value('created_at');
-        return view('urls.show', ['id' => $id, 'name' => $name, 'created_at' => $date]);
+        $checks = DB::table('url_checks')->skip(0)->take(10)->get();
+        return view('urls.show', ['id' => $id, 'name' => $name, 'created_at' => $date, 'checks' => $checks]);
     }
 
     /**

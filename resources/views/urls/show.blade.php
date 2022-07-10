@@ -34,8 +34,34 @@
                 </tbody>
             </table>
         </div>
-        <h2 class="mt-5 mb-3"></h2>
-        <form action=""></form>
+        <h2 class="mt-5 mb-3">Проверки</h2>
+        <form action="/urls/{{ $id }}/checks" method="post">
+        @csrf <!-- {{ csrf_field() }} -->
+          <input class="btn btn-primary" type="submit" value="Запустить проверку">
+        </form>
+        <table class="table table-bordered table-hover text-nowrap">
+          <tbody>
+            <tr>
+              <th>ID</th>
+              <th>Код ответа</th>
+              <th>h1</th>
+              <th>title</th>
+              <th>description</th>
+              <th>Дата создания</th>
+            </tr>
+            <?php
+              foreach ($checks as $check) : ?>
+                <tr>
+                  <td><?= $check->id ?></td>
+                  <td><?= $check->status_code ?></td>
+                  <td><?= $check->h1 ?></td>
+                  <td><?= $check->title ?></td>
+                  <td><?= $check->description ?></td>
+                  <td><?= $check->created_at ?></td>
+                </tr>
+              <?php endforeach ?>
+          </tbody>
+        </table>
     </div>
   </main>  
 

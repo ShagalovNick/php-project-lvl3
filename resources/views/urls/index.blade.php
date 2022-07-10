@@ -18,7 +18,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Имя</th>
-                        <th>Дата добавления</th>
+                        <th>Последняя проверка</th>
                     </tr>
                     <?php
                     $count = count($urls);
@@ -27,7 +27,7 @@
                         <tr>
                             <td><?= $url->id ?></td>
                             <td><a href="/urls/<?= $url->id ?>"><?= $url->name ?></a></td>
-                            <td><?= $url->created_at ?></td>
+                            <td><?= $url->last_url_check ?></td>
                         </tr>
                         <?php endforeach ?>
                 </tbody>
