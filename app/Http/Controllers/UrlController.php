@@ -43,7 +43,6 @@ class UrlController extends Controller
      */
     public function create()
     {
-        Schema::drop('urls');
         return view('urls.create');
     }
 
