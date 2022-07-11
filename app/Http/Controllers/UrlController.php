@@ -26,7 +26,7 @@ class UrlController extends Controller
 
         $latestCheck = DB::table('url_checks')
         ->select('url_id', 'status_code', DB::raw('MAX(created_at) as last_url_check'))
-        ->groupBy('url_id');
+        ->groupBy('url_id', 'status_code');
 
         $urls = DB::table('urls')
         ->leftJoinSub($latestCheck, 'latest_check', function ($join) {
