@@ -21,10 +21,10 @@ class UrlChecksController extends Controller
     public function store(Request  $request)
     {
         $pathArray = explode('/', $request->path());
-        $urlId = $pathArray[2];
+        $urlId = $pathArray[1];
         $name = DB::table('urls')->where('id', $urlId)->value('name');
         try {
-            $response = Http::timeout(3)->get($name);
+            $response = Http::dd()->timeout(8)->get($name);
         } catch (ConnectionException $exception) {
             flash($exception->getMessage())->error();
             return back()->withError($exception->getMessage())->withInput();
