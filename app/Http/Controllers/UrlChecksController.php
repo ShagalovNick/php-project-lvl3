@@ -7,6 +7,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Client\ConnectionException;
 
 class UrlChecksController extends Controller
 {
@@ -20,17 +22,28 @@ class UrlChecksController extends Controller
     {
         $pathArray = explode('/', $request->path());
         $urlId = $pathArray[1];
+        $name = DB::table('urls')->where('id', $urlId)->value('name');
+        try {
+            $response = Http::timeout(3)->get($name);
+        } catch (ConnectionException $exception) {
+            flash($exception->getMessage())->error();
+            return back()->withError($exception->getMessage())->withInput();
+        //    report($e);
+        //    flash($e);
+        //    return false;
+        }
+        
+        $status = $response->status();
         $timeNow = Carbon::now()->toDateTimeString();
         DB::table('url_checks')->insertGetId(
             ['url_id' => $urlId,
-            'status_code' => 200,
+            'status_code' => $status,
             'h1' => '',
             'title' => '',
             'description' => '',
             'created_at' => $timeNow]
         );
         flash('Страница успешно проверена');
-        $name = DB::table('urls')->where('id', $urlId)->value('name');
         //return Redirect::route('main');
         return Redirect::route('urls_show', ['id' => $urlId]);
         //return view('urls.show', ['id' => $urlId, 'name' => $name, 'created_at' => '']);

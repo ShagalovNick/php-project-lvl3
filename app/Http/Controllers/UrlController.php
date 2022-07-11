@@ -25,11 +25,11 @@ class UrlController extends Controller
         $skip = ($page - 1) * 15;
 
         $latestCheck = DB::table('url_checks')
-        ->select('url_id', DB::raw('MAX(created_at) as last_url_check'))
+        ->select('url_id', 'status_code', DB::raw('MAX(created_at) as last_url_check'))
         ->groupBy('url_id');
 
         $urls = DB::table('urls')
-        ->joinSub($latestCheck, 'latest_check', function ($join) {
+        ->leftJoinSub($latestCheck, 'latest_check', function ($join) {
         $join->on('urls.id', '=', 'latest_check.url_id');
         })->skip($skip)->take(15)->get();
 
@@ -43,6 +43,7 @@ class UrlController extends Controller
      */
     public function create()
     {
+        Schema::drop('urls');
         return view('urls.create');
     }
 
@@ -94,7 +95,7 @@ class UrlController extends Controller
             abort(404);
         }
         $date = DB::table('urls')->where('id', $id)->value('created_at');
-        $checks = DB::table('url_checks')->skip(0)->take(10)->get();
+        $checks = DB::table('url_checks')->where('url_id', $id)->skip(0)->take(10)->get();
         return view('urls.show', ['id' => $id, 'name' => $name, 'created_at' => $date, 'checks' => $checks]);
     }
 

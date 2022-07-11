@@ -19,6 +19,7 @@
                         <th>ID</th>
                         <th>Имя</th>
                         <th>Последняя проверка</th>
+                        <th>Код ответа</th>
                     </tr>
                     <?php
                     $count = count($urls);
@@ -28,6 +29,7 @@
                             <td><?= $url->id ?></td>
                             <td><a href="/urls/<?= $url->id ?>"><?= $url->name ?></a></td>
                             <td><?= $url->last_url_check ?></td>
+                            <td><?= $url->status_code ?></td>
                         </tr>
                         <?php endforeach ?>
                 </tbody>
