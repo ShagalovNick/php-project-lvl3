@@ -24,7 +24,7 @@ class UrlChecksController extends Controller
         $urlId = $pathArray[1];
         $name = DB::table('urls')->where('id', $urlId)->value('name');
         try {
-            $response = Http::timeout(8)->get("$name");
+            $response = Http::timeout(8)->get(trim($name));
         } catch (ConnectionException $exception) {
             flash($exception->getMessage())->error();
             return back()->withError($exception->getMessage())->withInput();
