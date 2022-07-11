@@ -37,26 +37,31 @@
         <h2 class="mt-5 mb-3">Проверки</h2>
         <form action="/urls/{{ $id }}/checks" method="post">
         @csrf <!-- {{ csrf_field() }} -->
-          <input class="btn btn-primary" type="submit" value="Запустить проверку">
+          <input class="btn btn-primary mb-3" type="submit" value="Запустить проверку">
         </form>
+        <style>
+ table { table-layout: fixed; }
+ table th, table td { overflow: hidden;
+  text-overflow: ellipsis; }
+</style>
         <table class="table table-bordered table-hover text-nowrap">
-          <tbody>
+          <tbody class="text-nowrap">
             <tr>
-              <th>ID</th>
-              <th>Код ответа</th>
-              <th>h1</th>
-              <th>title</th>
-              <th>description</th>
-              <th>Дата создания</th>
+              <th class="col-1">ID</th>
+              <th class="col-2">Код ответа</th>
+              <th class="col-4">h1</th>
+              <th class="col-4">title</th>
+              <th class="col-4">description</th>
+              <th class="col-3">Дата создания</th>
             </tr>
             <?php
               foreach ($checks as $check) : ?>
                 <tr>
                   <td><?= $check->id ?></td>
                   <td><?= $check->status_code ?></td>
-                  <td><?= $check->h1 ?></td>
-                  <td><?= $check->title ?></td>
-                  <td><?= $check->description ?></td>
+                  <td class="overflow-hidden"><?= $check->h1 ?></td>
+                  <td class="overflow-hidden"><?= $check->title ?></td>
+                  <td class="overflow-hidden"><?= $check->description ?></td>
                   <td><?= $check->created_at ?></td>
                 </tr>
               <?php endforeach ?>

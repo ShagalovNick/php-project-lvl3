@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\ConnectionException;
+use DiDom\Document;
 
 class UrlChecksController extends Controller
 {
@@ -29,15 +30,34 @@ class UrlChecksController extends Controller
             flash($exception->getMessage())->error();
             return back()->withError($exception->getMessage())->withInput();
         }
-        
+        $document = new Document(trim($name), true);
+        if ($document->has('h1')) {
+        $h1 = $document->find('h1')[0]->text();
+        } else {
+            $h1 = '';
+        }
+
+        if ($document->has('title')) {
+            $title = $document->find('title')[0]->text();
+            } else {
+                $title = '';
+            }
+            
+        if ($document->has('meta[name="description"]')){
+            $description = $document->find('meta[name="description"]')[0]
+                                ->getAttribute('content');
+        } else {
+            $description = '';
+        }            
+
         $status = $response->status();
         $timeNow = Carbon::now()->toDateTimeString();
         DB::table('url_checks')->insertGetId(
             ['url_id' => $urlId,
             'status_code' => $status,
-            'h1' => '',
-            'title' => '',
-            'description' => '',
+            'h1' => $h1,
+            'title' => $title,
+            'description' => $description,
             'created_at' => $timeNow]
         );
         flash('Страница успешно проверена');
