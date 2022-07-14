@@ -14,7 +14,6 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "nesbot/carbon": "^2.59",
-        "squizlabs/php_codesniffer": "*",
         "twbs/bootstrap": "5.2.0-beta1"
     },
     "require-dev": {
@@ -23,6 +22,7 @@
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^5.10",
+        "squizlabs/php_codesniffer": "*",
         "phpunit/phpunit": "^9.5.10"
     },
     "autoload": {
