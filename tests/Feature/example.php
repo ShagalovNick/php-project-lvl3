@@ -9,7 +9,7 @@ class UrlChecksControllerTest extends TestCase
 {
     use RefreshDatabase;
     use DatabaseMigrations;
-    
+
     /**
      * A basic test example.
      *

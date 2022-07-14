@@ -22,9 +22,7 @@
                         <th>Код ответа</th>
                     </tr>
 
-                    <?php
-                    
-                    $count = count($urls);
+                    <?php $count = count($urls);
                     foreach ($urls as $url) : ?>
                         <tr>
                             <td><?= $url->id ?></td>

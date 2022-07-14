@@ -53,7 +53,6 @@ class UrlController extends Controller
      */
     public function store(Request $request)
     {
-        
         $validated = $request->validate([
             'url.name' => 'required|max:255|starts_with:http',
         ]);
@@ -75,7 +74,6 @@ class UrlController extends Controller
         } else {
             flash('Страница уже существует');
         }
-         
         $id = DB::table('urls')->where('name', $name)->value('id');
         return Redirect::route('urls_show', ['id' => $id]);
     }

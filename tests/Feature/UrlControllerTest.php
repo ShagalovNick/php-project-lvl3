@@ -25,7 +25,6 @@ class UrlControllerTest extends TestCase
      */
     public function testIndexUrlController()
     {
-    
         $response = $this->get('/urls');
 
         $response->assertStatus(200);

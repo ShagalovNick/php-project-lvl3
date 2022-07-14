@@ -53,9 +53,7 @@
               <th class="col-3">Дата создания</th>
             </tr>
 
-            <?php
-            
-            foreach ($checks as $check) : ?>
+            <?php foreach ($checks as $check) : ?>
               <tr>
                 <td><?= $check->id ?></td>
                 <td><?= $check->status_code ?></td>

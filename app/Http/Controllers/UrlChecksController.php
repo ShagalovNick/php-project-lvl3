@@ -42,7 +42,7 @@ class UrlChecksController extends Controller
         } else {
             $title = '';
         }
-            
+
         if ($document->has('meta[name="description"]')) {
             $description = $document->find('meta[name="description"]')[0]
                                 ->getAttribute('content');
