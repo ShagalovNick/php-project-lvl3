@@ -14,12 +14,12 @@ use DiDom\Document;
 class UrlChecksController extends Controller
 {
       /**
-     * Store a newly created resource in storage.
+     * Store a newly created check in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request  $request)
+    public function store(Request $request)
     {
         $pathArray = explode('/', $request->path());
         $urlId = $pathArray[1];
@@ -32,23 +32,23 @@ class UrlChecksController extends Controller
         }
         $document = new Document(trim($name), true);
         if ($document->has('h1')) {
-        $h1 = $document->find('h1')[0]->text();
+            $h1 = $document->find('h1')[0]->text();
         } else {
             $h1 = '';
         }
 
         if ($document->has('title')) {
             $title = $document->find('title')[0]->text();
-            } else {
-                $title = '';
-            }
+        } else {
+            $title = '';
+        }
             
-        if ($document->has('meta[name="description"]')){
+        if ($document->has('meta[name="description"]')) {
             $description = $document->find('meta[name="description"]')[0]
                                 ->getAttribute('content');
         } else {
             $description = '';
-        }            
+        }
 
         $status = $response->status();
         $timeNow = Carbon::now()->toDateTimeString();
@@ -61,9 +61,6 @@ class UrlChecksController extends Controller
             'created_at' => $timeNow]
         );
         flash('Страница успешно проверена');
-        //return Redirect::route('main');
         return Redirect::route('urls_show', ['id' => $urlId]);
-        //return view('urls.show', ['id' => $urlId, 'name' => $name, 'created_at' => '']);
     }
-
 }

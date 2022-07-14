@@ -12,11 +12,16 @@ use Illuminate\Http\Response;
 
 class UrlControllerTest extends TestCase
 {
-    use RefreshDatabase, DatabaseMigrations;
+    use DatabaseMigrations;
+    use RefreshDatabase;
+
     /**
      * A basic feature test example.
      *
      * @return void
+     */
+    /**
+     * @expectedException PHPUnit\Framework\Error\Error
      */
     public function testIndexUrlController()
     {
@@ -46,6 +51,53 @@ class UrlControllerTest extends TestCase
         $exData = ['url' => ['name' => "htt://ya.ru"]];
         $response = $this->post('/urls', $exData);
         $this->assertDatabaseMissing('urls', $exData['url']);
+        $response->assertStatus(302);
     }
-    
+
+    public function testStoreUrlController3()
+    {
+        $exData = ['url' => ['name' => "https://yaNAS.ru/urls?page=2"]];
+        $response = $this->followingRedirects()->post('/urls', $exData);
+        $body = $response->getContent();
+        $this->assertStringContainsString(" Страница успешно добавлена", $body);
+        $response->assertStatus(200);
+
+        $exData2 = ['url' => ['name' => "https://yaNAS.ru/urls?page=3"]];
+        $response = $this->followingRedirects()->post('/urls', $exData2);
+        $body = $response->getContent();
+        $this->assertStringContainsString("Страница уже существует", $body);
+        $response->assertStatus(200);
+
+        $exData3 = ['url' => ['name' => ""]];
+        $response = $this->followingRedirects()->post('/urls', $exData3);
+        $body = $response->getContent();
+        $this->assertStringContainsString("Некорректный URL", $body);
+        $response->assertStatus(200);
+
+        $exData4 = ['url' => ['name' => "hjgfdjskjsdakjsdvkjbsdvkjdsvkjsdvkjbdsvkjbbd
+        skjbdskjbsdvkjbsdvkjbdsvkjbdsvkjbdsvkjbdvskjbsdvkjbsdvkjdvbskjsdvbsdkvjbsdvkjbh
+        jgfdjskjsdakjsdvkjbsdvkjdsvkjsdvkjbdsvkjbbdskjbdskjbsdvkjbsdvkjbdsvkjbdsvkjbdsv
+        kjbdvskjbsdvkjbsdvkjdvbskjsdvbsdkvjbsdvkjbdffdnfnfmgfgm"]];
+        $response = $this->followingRedirects()->post('/urls', $exData4);
+        $body = $response->getContent();
+        $this->assertStringContainsString("Некорректный URL", $body);
+        $response->assertStatus(200);
+    }
+
+    public function testShowUrlController()
+    {
+        $exData = ['url' => ['name' => "https://yaNAS.ru/urls?page=3"]];
+        $response = $this->followingRedirects()->post('/urls', $exData);
+        $body = $response->getContent();
+        $this->assertStringContainsString("https://yanas.ru", $body);
+        $response->assertStatus(200);
+
+        $response = $this->get('urls/1', [UrlController::class, 'show']);
+        $body = $response->getContent();
+        $this->assertStringContainsString("https://yanas.ru", $body);
+        $response->assertStatus(200);
+
+        $response = $this->get('urls/12', [UrlController::class, 'show']);
+        $response->assertStatus(404);
+    }
 }

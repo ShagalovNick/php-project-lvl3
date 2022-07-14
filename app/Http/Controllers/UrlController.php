@@ -9,12 +9,11 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Schema;
 
-
 class UrlController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * 
+     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -30,7 +29,7 @@ class UrlController extends Controller
 
         $urls = DB::table('urls')
         ->leftJoinSub($latestCheck, 'latest_check', function ($join) {
-        $join->on('urls.id', '=', 'latest_check.url_id');
+            $join->on('urls.id', '=', 'latest_check.url_id');
         })->skip($skip)->take(15)->get();
 
         return view('urls.index', ['page' => $page, 'urls' => $urls]);
@@ -69,10 +68,10 @@ class UrlController extends Controller
 
         if (!$validatorUniq->fails()) {
             $timeNow = Carbon::now()->toDateTimeString();
-        DB::table('urls')->insertGetId(
-            ['name' => $name, 'created_at' => $timeNow]
-        );
-        flash('Страница успешно добавлена');
+            DB::table('urls')->insertGetId(
+                ['name' => $name, 'created_at' => $timeNow]
+            );
+            flash('Страница успешно добавлена');
         } else {
             flash('Страница уже существует');
         }
@@ -94,7 +93,7 @@ class UrlController extends Controller
             abort(404);
         }
         $date = DB::table('urls')->where('id', $id)->value('created_at');
-        $checks = DB::table('url_checks')->where('url_id', $id)->skip(0)->take(10)->get();
+        $checks = DB::table('url_checks')->where('url_id', $id)->get();
         return view('urls.show', ['id' => $id, 'name' => $name, 'created_at' => $date, 'checks' => $checks]);
     }
 
@@ -104,11 +103,11 @@ class UrlController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+/*    public function edit($id)
     {
         //
     }
-
+*/
     /**
      * Update the specified resource in storage.
      *
@@ -116,19 +115,19 @@ class UrlController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+/*    public function update(Request $request, $id)
     {
         //
     }
-
+*/
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+/*    public function destroy($id)
     {
         //
-    }
+    }*/
 }

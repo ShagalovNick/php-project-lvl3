@@ -18,4 +18,4 @@ test-coverage:
 	XDEBUG_MODE=coverage php artisan test --coverage-clover build/logs/clover.xml
 
 lint:
-	phpcs --standard=PSR12 public app
+	phpcs --standard=PSR12 resources/views/urls app/Http/Controllers routes tests

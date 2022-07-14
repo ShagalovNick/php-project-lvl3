@@ -12,8 +12,6 @@
     @include('flash::message')
     <!-- Форма добавления сайта -->
   <main class="flex-grow-1">
-    <!--<div class="alert alert-info" role="alert">
-    </div>-->
     <div class="container-lg">
         <h1 class="mt-5 mb-3">Сайт: {{ $name }} </h1>
         <div class="table-responsive">
@@ -54,17 +52,19 @@
               <th class="col-4">description</th>
               <th class="col-3">Дата создания</th>
             </tr>
+
             <?php
-              foreach ($checks as $check) : ?>
-                <tr>
-                  <td><?= $check->id ?></td>
-                  <td><?= $check->status_code ?></td>
-                  <td class="overflow-hidden"><?= $check->h1 ?></td>
-                  <td class="overflow-hidden"><?= $check->title ?></td>
-                  <td class="overflow-hidden"><?= $check->description ?></td>
-                  <td><?= $check->created_at ?></td>
-                </tr>
-              <?php endforeach ?>
+            
+            foreach ($checks as $check) : ?>
+              <tr>
+                <td><?= $check->id ?></td>
+                <td><?= $check->status_code ?></td>
+                <td class="overflow-hidden"><?= $check->h1 ?></td>
+                <td class="overflow-hidden"><?= $check->title ?></td>
+                <td class="overflow-hidden"><?= $check->description ?></td>
+                <td><?= $check->created_at ?></td>
+              </tr>
+            <?php endforeach ?>
           </tbody>
         </table>
     </div>

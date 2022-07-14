@@ -21,9 +21,10 @@
                         <th>Последняя проверка</th>
                         <th>Код ответа</th>
                     </tr>
+
                     <?php
+                    
                     $count = count($urls);
-                    //foreach ($i = $page * 15 + 1; $i < min($count, $page * 15 + 16); $i++) : 
                     foreach ($urls as $url) : ?>
                         <tr>
                             <td><?= $url->id ?></td>
@@ -31,7 +32,7 @@
                             <td><?= $url->last_url_check ?></td>
                             <td><?= $url->status_code ?></td>
                         </tr>
-                        <?php endforeach ?>
+                    <?php endforeach ?>
                 </tbody>
             </table>
             <nav class="d-flex justify-items-center justify-content-between">

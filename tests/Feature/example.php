@@ -5,14 +5,17 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ExampleTest extends TestCase
+class UrlChecksControllerTest extends TestCase
 {
+    use RefreshDatabase;
+    use DatabaseMigrations;
+    
     /**
      * A basic test example.
      *
      * @return void
      */
-    public function test_example()
+    public function testStoreUrlController()
     {
         $response = $this->get('/');
 

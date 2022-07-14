@@ -16,7 +16,7 @@ use App\Http\Controllers\UrlChecksController;
 */
 
 
-Route::get('/', [UrlController::class, 'create'])->name('main');;
+Route::get('/', [UrlController::class, 'create'])->name('main');
 Route::post('/urls', [UrlController::class, 'store'])->name('urls_store');
 Route::get('urls/{id}', [UrlController::class, 'show'])->name('urls_show');
 Route::get('/urls', [UrlController::class, 'index']);
