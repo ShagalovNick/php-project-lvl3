@@ -10,7 +10,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "imangazaliev/didom": "^2.0",
         "laracasts/flash": "^3.2",
-        "laravel/framework": "^8.75",
+        "laravel/framework": "^8.0",
         "laravel/sanctum": "^2.11",
         "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.2",
