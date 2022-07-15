@@ -55,9 +55,9 @@ class UrlChecksController extends Controller
         DB::table('url_checks')->insertGetId(
             ['url_id' => $urlId,
             'status_code' => $status,
-            'h1' => $h1,
-            'title' => $title,
-            'description' => $description,
+            'h1' => trim($h1),
+            'title' => trim($title),
+            'description' => trim($description),
             'created_at' => $timeNow]
         );
         flash('Страница успешно проверена');
