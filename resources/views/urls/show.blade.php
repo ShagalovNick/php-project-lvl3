@@ -55,12 +55,12 @@
 
             <?php foreach ($checks as $check) : ?>
               <tr>
-                <td><?= $check->id ?></td>
-                <td><?= $check->status_code ?></td>
-                <td class="overflow-hidden"><?= $check->h1 ?></td>
-                <td class="overflow-hidden"><?= $check->title ?></td>
-                <td class="overflow-hidden"><?= $check->description ?></td>
-                <td><?= $check->created_at ?></td>
+                <td>{{ $check->id }}</td>
+                <td>{{ $check->status_code }}</td>
+                <td class="overflow-hidden">{{ $check->h1 }}</td>
+                <td class="overflow-hidden">{{ $check->title }}</td>
+                <td class="overflow-hidden">{{ $check->description }}</td>
+                <td>{{ $check->created_at }}</td>
               </tr>
             <?php endforeach ?>
           </tbody>

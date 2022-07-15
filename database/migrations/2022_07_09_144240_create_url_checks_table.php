@@ -21,7 +21,7 @@ class CreateUrlChecksTable extends Migration
             $table->string('h1', 255)->nullable();
             $table->string('title', 255)->nullable();
             $table->string('description', 255)->nullable();
-            $table->timestampTz('created_at', $precision = 6);
+            $table->timestamps('created_at', $precision = 6);
         });
 
         Schema::table('url_checks', function (Blueprint $table) {
