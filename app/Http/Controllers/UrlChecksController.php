@@ -59,7 +59,7 @@ class UrlChecksController extends Controller
             'h1' => trim($h1),
             'title' => trim($title),
             'description' => trim($description),
-            'created_at' => $timeNow]
+            'created_at' => $timeNow->toISOString()]
         );
         flash('Страница успешно проверена');
         return Redirect::route('urls_show', ['id' => $urlId]);
