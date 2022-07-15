@@ -15,13 +15,23 @@ class CreateUrlChecksTable extends Migration
     public function up()
     {
         Schema::create('url_checks', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('url_id');
+            $table->foreign('url_id')->references('id')->on('urls');
+            $table->integer('status_code')->nullable();
+            $table->string('h1')->nullable();
+            $table->string('title')->nullable();
+            $table->string('description')->nullable();
+            $table->timestamps();
+        });
+        /*Schema::create('url_checks', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('url_id')->index();
             $table->string('status_code', 5)->nullable();
             $table->string('h1', 255)->nullable();
             $table->string('title', 255)->nullable();
             $table->string('description', 255)->nullable();
-            $table->timestamp('created_at', $precision = 6);
+            $table->timestamp('created_at');
         });
 
         Schema::table('url_checks', function (Blueprint $table) {
@@ -30,7 +40,7 @@ class CreateUrlChecksTable extends Migration
             ->on('urls')
             ->onUpdate('cascade')
             ->onDelete('cascade');
-        });
+        });*/
     }
 
     /**

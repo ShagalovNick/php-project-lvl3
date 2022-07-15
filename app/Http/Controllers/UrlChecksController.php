@@ -52,14 +52,14 @@ class UrlChecksController extends Controller
 
         $status = $response->status();
         //$timeNow = Carbon::now()->toDateTimeString();
-        $timeNow = Carbon::now();
+        $timeNow = Carbon::now()->toDateTimeString();
         DB::table('url_checks')->insertGetId(
             ['url_id' => $urlId,
             'status_code' => $status,
             'h1' => trim($h1),
             'title' => trim($title),
             'description' => trim($description),
-            'created_at' => $timeNow->toJSON()]
+            'created_at' => $timeNow]
         );
         flash('Страница успешно проверена');
         return Redirect::route('urls_show', ['id' => $urlId]);
