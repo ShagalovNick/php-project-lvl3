@@ -19,10 +19,10 @@ class UrlChecksController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(int $urlId)
     {
-        $pathArray = explode('/', $request->path());
-        $urlId = $pathArray[1];
+        //$pathArray = explode('/', $request->path());
+        //$urlId = $pathArray[1];
         $name = DB::table('urls')->where('id', $urlId)->value('name');
         try {
             $response = Http::timeout(8)->get(trim($name));
