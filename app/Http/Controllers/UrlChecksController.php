@@ -52,8 +52,9 @@ class UrlChecksController extends Controller
 
         $status = $response->status();
         //$timeNow = Carbon::now()->toDateTimeString();
-        $timeNow = Carbon::now()->toDateTimeString();
-        DB::table('url_checks')->insertGetId(
+        $timeNow = Carbon::now();
+        //DB::table('url_checks')->insertGetId(
+        DB::table('url_checks')->insert(
             ['url_id' => $urlId,
             'status_code' => $status,
             'h1' => trim($h1),
