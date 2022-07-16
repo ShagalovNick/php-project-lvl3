@@ -26,7 +26,7 @@ class UrlChecksControllerTest extends TestCase
             ['name' => 'tests/fixtures/page.html', 'created_at' => '1908-01-01']
         );
         $response = $this->followingRedirects()->post('/urls/1/checks');
-        $body = $response->getContent();
+        $body = $response->getContent() ?? '';
         $this->assertStringContainsString("Заголовок", $body);
         $this->assertStringContainsString("Заголовок страницы", $body);
         $this->assertStringContainsString("Описание", $body);

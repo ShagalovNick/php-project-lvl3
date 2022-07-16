@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 //use Illuminate\Http\Request;
-use Carbon\Carbon;
+use Illuminate\Http\Client\HttpClientException;
+use GuzzleHttp\Exception\RequestException;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\ConnectionException;
 use DiDom\Document;
@@ -75,7 +76,8 @@ class UrlChecksController extends Controller
 
         try {
             $response = Http::get($url->name);
-            $document = new Document($response->body());
+            //$document = new Document($response->body());
+            $document = new Document($url->name, true);
             $h1 = optional($document->first('h1'))->text();
             $title = optional($document->first('title'))->text();
             $description = optional($document->first('meta[name=description]'))->getAttribute('content');

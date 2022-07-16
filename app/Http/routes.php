@@ -33,6 +33,5 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/urls', 'UrlController@index');
     Route::post('/url', 'UrlController@store');
     Route::delete('/url/{url}', 'UrlController@destroy');
-
-    Route::auth();
+//    Route::auth();
 });
