@@ -19,7 +19,7 @@ class UrlChecksController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(int $urlId)
+    /*public function store(int $urlId)
     {
         //$url = DB::table('urls')->find($urlId);
         $name = DB::table('urls')->where('id', $urlId)->value('name');
@@ -67,8 +67,8 @@ class UrlChecksController extends Controller
         );
         flash('Страница успешно проверена');
         return Redirect::route('urls_show', ['id' => $urlId]);
-    }
-/*    public function store(int $id)
+    }*/
+    public function store(int $id)
     {
         $url = DB::table('urls')->find($id);
         abort_unless($url, 404);
@@ -92,6 +92,6 @@ class UrlChecksController extends Controller
         } catch (RequestException | HttpClientException | ConnectionException $exception) {
             flash(message: $exception->getMessage())->error();
         }
-        return redirect()->route('urls.show', ['url' => $id]);
-    }*/
+        return Redirect::route('urls_show', ['id' => $urlId]);
+    }
 }
