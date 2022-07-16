@@ -17,7 +17,7 @@ class CreateUrlChecksTable extends Migration
         Schema::create('url_checks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('url_id')->constrained('urls');
-            $table->integer('status_code')->nullable();
+            $table->text('status_code')->nullable();
             $table->text('h1')->nullable();
             $table->text('title')->nullable();
             $table->text('description')->nullable();
