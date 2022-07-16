@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -31,24 +31,24 @@ class UrlChecksController extends Controller
             return back()->withError($exception->getMessage())->withInput();
         }
         $document = new Document(trim($name), true);
-        if ($document->has('h1')) {
-            $h1 = $document->find('h1')[0]->text();
-        } else {
-            $h1 = '';
-        }
+        //if ($document->has('h1')) {
+        $h1 = optional($document->find('h1')[0])->text();
+        //} else {
+        //    $h1 = '';
+        //}
 
-        if ($document->has('title')) {
-            $title = $document->find('title')[0]->text();
-        } else {
-            $title = '';
-        }
+        //if ($document->has('title')) {
+        $title = optional($document->find('title')[0])->text();
+        //} else {
+        //    $title = '';
+        //}
 
-        if ($document->has('meta[name="description"]')) {
-            $description = $document->find('meta[name="description"]')[0]
+        //if ($document->has('meta[name="description"]')) {
+        $description = optional($document->find('meta[name="description"]')[0])
                                 ->getAttribute('content');
-        } else {
-            $description = '';
-        }
+        //} else {
+        //    $description = '';
+        //}
 
         $status = $response->status();
         //$timeNow = Carbon::now()->toDateTimeString();
