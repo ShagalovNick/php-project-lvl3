@@ -92,6 +92,6 @@ class UrlChecksController extends Controller
         } catch (RequestException | HttpClientException | ConnectionException $exception) {
             flash(message: $exception->getMessage())->error();
         }
-        return Redirect::route('urls_show', ['id' => $urlId]);
+        return Redirect::route('urls_show', ['id' => $id]);
     }
 }
