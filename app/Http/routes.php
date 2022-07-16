@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Routes File
@@ -34,5 +35,4 @@ Route::group(['middleware' => ['web']], function () {
     Route::delete('/url/{url}', 'UrlController@destroy');
 
     Route::auth();
-
 });
