@@ -76,8 +76,7 @@ class UrlChecksController extends Controller
 
         try {
             $response = Http::get($url->name);
-            //$document = new Document($response->body());
-            $document = new Document($url->name, true);
+            $document = new Document($response->body());
             $h1 = optional($document->first('h1'))->text();
             $title = optional($document->first('title'))->text();
             $description = optional($document->first('meta[name=description]'))->getAttribute('content');

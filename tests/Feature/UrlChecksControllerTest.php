@@ -20,11 +20,18 @@ class UrlChecksControllerTest extends TestCase
      */
     public function testStoreUrlChecksController()
     {
-        Http::fake();
 
         DB::table('urls')->insertGetId(
-            ['name' => 'tests/fixtures/page.html', 'created_at' => '1908-01-01']
+            ['name' => 'https://ya.ru', 'created_at' => '1908-01-01']
         );
+
+        $pathToHtml = __DIR__ . '/../fixtures/page.html';
+        $fakeHtml = file_get_contents($pathToHtml);
+
+        Http::fake([
+            'https://ya.ru' => Http::response($fakeHtml, 200, ['Headers' => '']),
+        ]);
+
         $response = $this->followingRedirects()->post('/urls/1/checks');
         $body = $response->getContent() ?? '';
         $this->assertStringContainsString("Заголовок", $body);
@@ -34,7 +41,7 @@ class UrlChecksControllerTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testStoreUrlChecksController2()
+/*    public function testStoreUrlChecksController2()
     {
         Http::fake();
 
@@ -44,5 +51,5 @@ class UrlChecksControllerTest extends TestCase
         $response = $this->post('/urls/1/checks');
         $response->assertRedirect(route('urls_show', ['id' => 1]));
         $response->assertStatus(302);
-    }
+    }*/
 }
