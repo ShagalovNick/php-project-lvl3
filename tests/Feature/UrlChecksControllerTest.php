@@ -33,7 +33,7 @@ class UrlChecksControllerTest extends TestCase
         ]);
 
         $response = $this->followingRedirects()->post('/urls/1/checks');
-        $body = $response->getContent();
+        $body = (string) $response->getContent();
         $this->assertStringContainsString("Заголовок", $body);
         $this->assertStringContainsString("Заголовок страницы", $body);
         $this->assertStringContainsString("Описание", $body);
