@@ -58,19 +58,19 @@ class UrlControllerTest extends TestCase
     {
         $exData = ['url' => ['name' => "https://yaNAS.ru/urls?page=2"]];
         $response = $this->followingRedirects()->post('/urls', $exData);
-        $body = $response->getContent() ?? '';
+        $body = $response->getContent();
         $this->assertStringContainsString(" Страница успешно добавлена", $body);
         $response->assertStatus(200);
 
         $exData2 = ['url' => ['name' => "https://yaNAS.ru/urls?page=3"]];
         $response = $this->followingRedirects()->post('/urls', $exData2);
-        $body = $response->getContent() ?? '';
+        $body = $response->getContent();
         $this->assertStringContainsString("Страница уже существует", $body);
         $response->assertStatus(200);
 
         $exData3 = ['url' => ['name' => ""]];
         $response = $this->followingRedirects()->post('/urls', $exData3);
-        $body = $response->getContent() ?? '';
+        $body = $response->getContent();
         $this->assertStringContainsString("Некорректный URL", $body);
         $response->assertStatus(200);
 
@@ -79,7 +79,7 @@ class UrlControllerTest extends TestCase
         jgfdjskjsdakjsdvkjbsdvkjdsvkjsdvkjbdsvkjbbdskjbdskjbsdvkjbsdvkjbdsvkjbdsvkjbdsv
         kjbdvskjbsdvkjbsdvkjdvbskjsdvbsdkvjbsdvkjbdffdnfnfmgfgm"]];
         $response = $this->followingRedirects()->post('/urls', $exData4);
-        $body = $response->getContent() ?? '';
+        $body = $response->getContent();
         $this->assertStringContainsString("Некорректный URL", $body);
         $response->assertStatus(200);
     }
@@ -88,12 +88,12 @@ class UrlControllerTest extends TestCase
     {
         $exData = ['url' => ['name' => "https://yaNAS.ru/urls?page=3"]];
         $response = $this->followingRedirects()->post('/urls', $exData);
-        $body = $response->getContent() ?? '';
+        $body = $response->getContent();
         $this->assertStringContainsString("https://yanas.ru", $body);
         $response->assertStatus(200);
 
         $response = $this->get('urls/1', [UrlController::class, 'show']);
-        $body = $response->getContent() ?? '';
+        $body = $response->getContent();
         $this->assertStringContainsString("https://yanas.ru", $body);
         $response->assertStatus(200);
 
