@@ -51,13 +51,12 @@ class UrlController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $validated = $request->validate([
-            'url.name' => 'required|max:255|starts_with:http',
+            'url.name' => 'required|max:255|starts_with:http', 
         ]);
 
-        $url = $request->input('url');
+   $url = $request->input('url');
         $parsedUrl = parse_url($url['name']);
         $name = $parsedUrl['scheme'] . "://" . strtolower($parsedUrl['host']);
 
