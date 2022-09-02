@@ -2,7 +2,7 @@
 
 @extends('layouts.app')
 
-@section('content')
+			@section('content')
 
   <!-- Bootstrap шаблон... -->
 
@@ -34,11 +34,11 @@
         </div>
         <h2 class="mt-5 mb-3">Проверки</h2>
         <form action="/urls/{{ $id }}/checks" method="post">
-        @csrf <!-- {{ csrf_field() }} -->
+@csrf <!-- {{ csrf_field() }} -->
           <input class="btn btn-primary mb-3" type="submit" value="Запустить проверку">
         </form>
         <style>
- table { table-layout: fixed; }
+	table { table-layout: fixed; }
  table th, table td { overflow: hidden;
   text-overflow: ellipsis; }
 </style>
@@ -53,11 +53,11 @@
               <th class="col-3">Дата создания</th>
             </tr>
 
-            <?php foreach ($checks as $check) : ?>
+            <?php foreach  ($checks   as $check) : ?>
               <tr>
                 <td>{{ $check->id }}</td>
                 <td>{{ $check->status_code }}</td>
-                <td class="overflow-hidden">{{ $check->h1 }}</td>
+                <td class="   overflow-hidden">{{ $check->h1 }}</td>
                 <td class="overflow-hidden">{{ $check->title }}</td>
                 <td class="overflow-hidden">{{ $check->description }}</td>
                 <td>{{ $check->created_at }}</td>
